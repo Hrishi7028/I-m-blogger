@@ -1,0 +1,32 @@
+.navbar{
+    font-family: 'Baloo Bhaina 2', cursive;
+    font-weight:600;
+    font-size: 10px !important;
+}
+
+.navbar-brand {
+    font-size: 27px;
+}
+
+.nav-item {
+    margin-right: 8px;
+}
+
+.nav-link {
+    padding:0px;
+    font-size: 20px;
+}
+
+.nav-link:hover {
+    color:blue !important;
+    transition: all 0.5s ease-in-out;
+}
+
+.icon {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.login_icon {
+    margin-right: 4px !important;
+}
