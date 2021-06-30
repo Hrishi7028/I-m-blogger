@@ -1,4 +1,5 @@
 require('dotenv').config();
+var cors = require('cors');
 const express = require('express');
 const app = express();
 const connection = require('./config/db')
@@ -10,6 +11,7 @@ connection();
 
 // middleware setup
 app.use(express.json());
+app.use(cors());
 
 
 //user registration router

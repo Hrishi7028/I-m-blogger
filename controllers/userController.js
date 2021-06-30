@@ -34,7 +34,7 @@ module.exports.register = async (req, res) => {
     try {
         const checkUser = await User.findOne({ email });
         if (checkUser) {
-            return res.status(409).json({ msg: 'Email already exist' })
+            return res.status(500).json({ errors: [{msg:'Email already exist'}] })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -48,18 +48,18 @@ module.exports.register = async (req, res) => {
 
             const token = userToken(user);
             return res.status(200).json({
-                user,
+                msg:'Account has been created successfully',
                 token
             })
         } catch (error) {
             return res.status(509).json({
-                error: "data has not saved"
+                errors: [{msg:"data has not saved"}]
             })
         }
     } catch (error) {
-        return res.status(509).json({
-            error
-        })
+        return res.status(509).json([{
+            errors:[{msg:error}]
+        }])
     }
 }
 
@@ -82,17 +82,17 @@ module.exports.login = async (req, res) => {
     try {
         const checkEmail = await User.findOne({ email });
         if (!checkEmail) {
-            return res.status(404).json({
-                msg: "Email does not exist Enter correct email"
-            })
+            return res.status(404).json([{
+                errors: "Email does not exist Enter correct email"
+            }])
         }
         try {
             const user = await User.findOne({ email });
             const isMatched = await bcrypt.compare(password, user.password);
             if (!isMatched) {
-                return res.status(404).json({
+                return res.status(404).json([{
                     errors: "Password is wrong"
-                })
+                }])
             }
 
             const token = userToken(user);
@@ -103,15 +103,15 @@ module.exports.login = async (req, res) => {
 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(500).json([{
                 errors:error
-            })
+            }])
         }
     } catch (error) {
         console.log(error);
-        return res.status(509).json({
+        return res.status(509).json([{
             errors:error
-        })
+        }])
     }
 
 

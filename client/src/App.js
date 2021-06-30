@@ -14,7 +14,7 @@ import store from "./redux/store";
 function App() {
   return (
     <>
-      {/* <Provider store = {store}> */}
+      <Provider store = {store}>
         <Router>
           <Navbar />
           <Switch>
@@ -29,7 +29,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      {/* </Provider> */}
+      </Provider>
     </>
   );
 }

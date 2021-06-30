@@ -11,7 +11,7 @@ const Login = () => {
                     <hr />
                     <form className="needs-validation" >
                         <div className="form-group">
-                            <label for="useremail">Email address: </label>
+                            <label htmlFor="useremail">Email address: </label>
                             <input type="email" className="form-control" id="useremail" aria-describedby="emailHelp"
                                 placeholder="abc@abc.com" />
                             <small id="emailHelp" className="form-text text-muted"><i className="fas fa-info-circle"></i> We'll
@@ -22,7 +22,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label for="userpassword">Password: </label>
+                            <label htmlFor="userpassword">Password: </label>
                             <input type="password" className="form-control" id="userpassword"
                                 aria-describedby="passwordHelp" placeholder="••••••••"/>
                             <small id="passwordHelp" className="form-text text-muted"><i className="fas fa-info-circle"></i>
@@ -35,7 +35,7 @@ const Login = () => {
                         <div className="form-group">
                             <input type="submit" className="btn btn-warning w-100" value="Login" id="login"/>
                         </div>
-                        <p className="text-center">Already have an account? <Link to="login.html"> Sign in</Link></p>
+                        <p className="text-center">Don't have an account? <Link to="/register"> Sign in</Link></p>
                         <small id="passwordHelp" className="form-text text-muted mt-3">By continuing, you agree to I'm Blogger's
                             <span><Link to="#"> Conditions of Use</Link></span> and <span><Link to="#">Privacy
                                     Notice</Link></span>.</small>
