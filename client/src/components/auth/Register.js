@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { postRegisterData } from '../../redux/AsyncMethods/userMethod'
+
+
 const Register = () => {
     const [state, setState] = useState({
         name: '',
         email: '',
         password: ''
     })
-    let history = useHistory();
     const handelInput = (e) => {
         setState({
             ...state,
@@ -21,14 +21,12 @@ const Register = () => {
     }
 
     const dispatch = useDispatch();
-    const { loading, registerError, user } = useSelector(state => state.AuthReducer);
+    const { loading, registerError } = useSelector(state => state.AuthReducer);
 
     const registerUser = async (e) => {
-
         e.preventDefault();
         dispatch({ type: 'ON_LOADING' })
         dispatch(postRegisterData(state))
-        
     }
 
     useEffect(() => {
@@ -47,21 +45,20 @@ const Register = () => {
                     }))
             })
         }
-        if (user) {
-            toast.success('Account has been created successfully', {
-                position: 'top-right',
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+        // if (user) {
+        //     toast.success('Account has been created successfully', {
+        //         position: 'top-right',
+        //         autoClose: 2000,
+        //         hideProgressBar: true,
+        //         closeOnClick: false,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //     });
 
-            setInterval(function () { history.push('/login') }, 2000);
-        }
-
-    }, [registerError,user])
+        //     setInterval(function () { history.push('/') }, 2000);
+        // }
+    }, [registerError])
     return (
         <>
             <ToastContainer

@@ -14,8 +14,8 @@ const userToken = (user) => {
 
 // user registration validation
 module.exports.registerValidation = [
-    body('name').not().isEmpty().withMessage('Name shoud be entered'),
-    body('email').not().isEmpty().withMessage('Email shoud be entered'),
+    body('name').not().isEmpty().trim().withMessage('Name shoud be entered'),
+    body('email').not().isEmpty().trim().withMessage('Email shoud be entered'),
     body('password').isLength({ min: 8 }).withMessage('password length should minimum 8')
 ]
 
@@ -34,7 +34,7 @@ module.exports.register = async (req, res) => {
     try {
         const checkUser = await User.findOne({ email });
         if (checkUser) {
-            return res.status(500).json({ errors: [{msg:'Email already exist'}] })
+            return res.status(500).json({ errors: [{ msg: 'Email already exist' }] })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -48,17 +48,17 @@ module.exports.register = async (req, res) => {
 
             const token = userToken(user);
             return res.status(200).json({
-                msg:'Account has been created successfully',
+                msg: 'Account has been created successfully',
                 token
             })
         } catch (error) {
             return res.status(509).json({
-                errors: [{msg:"data has not saved"}]
+                errors: [{ msg: "data has not saved" }]
             })
         }
     } catch (error) {
         return res.status(509).json([{
-            errors:[{msg:error}]
+            errors: [{ msg: error }]
         }])
     }
 }
@@ -82,17 +82,17 @@ module.exports.login = async (req, res) => {
     try {
         const checkEmail = await User.findOne({ email });
         if (!checkEmail) {
-            return res.status(404).json([{
-                errors: "Email does not exist Enter correct email"
-            }])
+            return res.status(404).json({
+                errors: [{ msg:"Email does not exist Enter correct email"}]
+            })
         }
         try {
             const user = await User.findOne({ email });
             const isMatched = await bcrypt.compare(password, user.password);
             if (!isMatched) {
-                return res.status(404).json([{
-                    errors: "Password is wrong"
-                }])
+                return res.status(404).json({
+                    errors: [{ msg: "Password is wrong" }]
+                })
             }
 
             const token = userToken(user);
@@ -102,18 +102,15 @@ module.exports.login = async (req, res) => {
             })
 
         } catch (error) {
-            console.log(error);
-            return res.status(500).json([{
-                errors:error
-            }])
+            // console.log(error);
+            return res.status(50).json({
+                errors: [{ msg: error }]
+            })
         }
     } catch (error) {
         console.log(error);
-        return res.status(509).json([{
-            errors:error
-        }])
+        return res.status(509).json({
+            errors: [{ msg: error }]
+        })
     }
-
-
-
 }

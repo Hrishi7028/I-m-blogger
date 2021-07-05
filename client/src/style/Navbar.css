@@ -22,6 +22,10 @@
     transition: all 0.5s ease-in-out;
 }
 
+.name_icon{
+    cursor:pointer;
+}
+
 .icon {
     display: inline-block;
     margin-right: 4px;
