@@ -3,15 +3,18 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
 import { uuid } from 'uuidv4';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { postBlog } from '../redux/AsyncMethods/postBlog';
 
 const CreateBlog = () => {
 
     const [value, setValue] = useState('');
-    const [imageName, setImageName] = useState('Click here to upload picture...');
+    const [image, setImageName] = useState('Click here to upload picture...');
     const [imgPreview, setImgPreview] = useState('');
     const [slug, setSlug] = useState('https://yourpost.com')
 
+    const dispatch = useDispatch();
+    const { user: { _id, name } } = useSelector((state) => (state.AuthReducer));
 
     const handelImageName = e => {
 
@@ -31,8 +34,14 @@ const CreateBlog = () => {
     const [state, setState] = useState({
         title: '',
         image: '',
+        description: ''
     });
-
+    const handelDescription = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    }
     const handelTitle = e => {
         setState({
             ...state,
@@ -41,11 +50,26 @@ const CreateBlog = () => {
         const post_title = state.title.trim().split(' ').join('-');
         setSlug(post_title)
     }
+    const submitPostdata = (e) => {
+        e.preventDefault();
+        // console.log(state);
+        // console.log(slug);
+        // console.log(value);
+        const formData = new FormData();
+        formData.append('title',state.title);
+        formData.append('image',state.image);
+        formData.append('description',state.description);
+        formData.append('post_body',value);
+        formData.append('slug',slug);
+        formData.append('user',name);
+        formData.append('_id',_id);
+        dispatch(postBlog(formData));
+    }
     return (
         <>
             <div className="createPost">
                 <div className="custome_container ">
-                    <form>
+                    <form onSubmit={submitPostdata}>
                         <h2 className="mb-3 postHeading">Create Your Post Here...</h2>
                         <div className="row">
                             <div className="col-6">
@@ -63,12 +87,12 @@ const CreateBlog = () => {
                                         />
                                     </div>
                                     <div className="mt-3 px-2">
-                                        <label className="upload_picture" htmlFor="imageName">{imageName}</label>
+                                        <label className="upload_picture" htmlFor="image">{image}</label>
                                         <input
                                             type="file"
                                             className="form-control hideInput"
-                                            id="imageName"
-                                            name="imageName"
+                                            id="image"
+                                            name="image"
                                             onChange={handelImageName}
                                         />
                                     </div>
@@ -96,13 +120,20 @@ const CreateBlog = () => {
                                     <div className="my-3 px-2">
                                         <div className="imagePreview">
                                             {
-                                                imgPreview ? <img height="auto" width="100%" src={imgPreview} /> : ''
+                                                imgPreview ? <img height="auto" alt="img" width="100%" src={imgPreview} /> : ''
                                             }
                                         </div>
                                     </div>
                                     <div className="pb-3 px-2">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{ height: "200px" }}></textarea>
+                                        <div className="form-floating">
+                                            <textarea
+                                                className="form-control"
+                                                placeholder="Enter meta data here..."
+                                                id=""
+                                                onChange={handelDescription}
+                                                name="description"
+                                                defaultValue={state.description}
+                                                style={{ height: "200px" }}></textarea>
 
                                         </div>
                                     </div>

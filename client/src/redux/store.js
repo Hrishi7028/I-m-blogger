@@ -2,9 +2,12 @@ import { combineReducers, createStore ,applyMiddleware} from 'redux'
 import reduxThunk from 'redux-thunk'
 import AuthReducer from './reducers/AuthReducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import postReducer from './reducers/postReducer'
+
 
 const rootReducer = combineReducers({
-    AuthReducer
+    AuthReducer,
+    postReducer
 })
 
 const middlewares = [reduxThunk];

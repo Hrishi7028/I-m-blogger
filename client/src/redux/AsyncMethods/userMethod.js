@@ -12,11 +12,11 @@ export const postRegisterData = (state, props) => {
 
             dispatch({ type: 'CLOSE_LOADING' })
             dispatch({ type: 'SET_USER', payload: response.data.token })
-            console.log(response.data.token);
+            // console.log(response.data.token);
             localStorage.setItem('User_key', response.data.token)
 
         } catch (error) {
-            console.log(error.response);
+            // console.log(error.response);
             dispatch({ type: 'CLOSE_LOADING' })
             dispatch({ type: 'REGISTER_ERROR', payload: error.response.data.errors });
         }
