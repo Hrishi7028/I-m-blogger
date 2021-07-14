@@ -36,6 +36,7 @@ export const postLoginData = (state) => {
             dispatch({ type: 'CLOSE_LOADING' })
             localStorage.setItem('User_key', data.token)
             dispatch({ type: 'SET_USER', payload: data.token })
+            
             console.log(data);
         } catch (error) {
             console.log(error.response.data.errors);

@@ -1,12 +1,15 @@
 import '../style/CreatePost.css'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { uuid } from 'uuidv4';
 import { useSelector, useDispatch } from 'react-redux';
 import { postBlog } from '../redux/AsyncMethods/postBlog';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
-const CreateBlog = () => {
+const CreateBlog = (props) => {
 
     const [value, setValue] = useState('');
     const [image, setImageName] = useState('Click here to upload picture...');
@@ -15,21 +18,23 @@ const CreateBlog = () => {
 
     const dispatch = useDispatch();
     const { user: { _id, name } } = useSelector((state) => (state.AuthReducer));
-
+    const { postErrors,redirect } = useSelector((state) => (state.postReducer));
     const handelImageName = e => {
 
         e.preventDefault();
-        let file = e.target.files[0].name;
-        let reader = new FileReader();
-        reader.onloadend = (e) => {
-            setImgPreview(reader.result)
+        if (e.target.files.length > 0) {
+            let file = e.target.files[0].name;
+            let reader = new FileReader();
+            reader.onloadend = (e) => {
+                setImgPreview(reader.result)
+            }
+            reader.readAsDataURL(e.target.files[0])
+            setImageName(file)
+            setState({
+                ...state,
+                [e.target.name]: e.target.files[0]
+            })
         }
-        reader.readAsDataURL(e.target.files[0])
-        setImageName(file)
-        setState({
-            ...state,
-            [e.target.name]: e.target.files[0]
-        })
     }
     const [state, setState] = useState({
         title: '',
@@ -56,17 +61,52 @@ const CreateBlog = () => {
         // console.log(slug);
         // console.log(value);
         const formData = new FormData();
-        formData.append('title',state.title);
-        formData.append('image',state.image);
-        formData.append('description',state.description);
-        formData.append('post_body',value);
-        formData.append('slug',slug);
-        formData.append('user',name);
-        formData.append('_id',_id);
+        formData.append('title', state.title);
+        formData.append('image', state.image);
+        formData.append('description', state.description);
+        formData.append('post_body', value);
+        formData.append('slug', slug);
+        formData.append('user', name);
+        formData.append('_id', _id);
         dispatch(postBlog(formData));
     }
+
+    useEffect(() => {
+        if (postErrors.length > 0) {
+            postErrors.map((error) => {
+                return (
+                    toast.error(error.msg, {
+                        position: 'top-center',
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    }))
+            })
+        }
+        if(redirect) {
+            props.history.push('/dashboard');
+        }
+    }, [postErrors,redirect])
+
+
     return (
         <>
+
+
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className="createPost">
                 <div className="custome_container ">
                     <form onSubmit={submitPostdata}>
