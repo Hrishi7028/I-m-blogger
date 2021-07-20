@@ -9,7 +9,7 @@ module.exports.createPost = (req, res) => {
     form.parse(req, (err, fields, files) => {
         // console.log(fields, files);
         const errors = [];
-        const { title, image, description, post_body, _id, name ,slug} = fields;
+        const { title, image, description, post_body, _id, name, slug } = fields;
 
         if (title.length === 0) {
             errors.push({ msg: 'Enter title properly' })
@@ -46,7 +46,7 @@ module.exports.createPost = (req, res) => {
                     if (!err) {
                         const post = await Post.create({
                             title,
-                            image:name,
+                            image: name,
                             slug,
                             description,
                             post_body,
@@ -64,7 +64,7 @@ module.exports.createPost = (req, res) => {
                     return res.status(500).json({
                         errors
                         // errors:error.message
-                        
+
                     })
                 }
             })
@@ -72,4 +72,18 @@ module.exports.createPost = (req, res) => {
 
 
     });
+}
+
+module.exports.getAllPosts = async (req, res) => {
+    const id = req.params.id;
+
+    console.log(id);
+    try {
+        const posts = await Post.find({ userId: id });
+        return res.status(200).json({ posts })
+    } catch (error) {
+        return res.status(500).json({
+            error
+        })
+    }
 }

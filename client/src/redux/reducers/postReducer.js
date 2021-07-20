@@ -2,10 +2,11 @@ const initialState = {
     loading: false,
     redirect: false,
     postErrors: [],
-    message: ''
+    message: '',
+    posts:[],
 }
 
-const postReducer = (state = initialState, action) => {
+export const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ON_LOADING':
             return { ...state, loading: true }
@@ -34,4 +35,18 @@ const postReducer = (state = initialState, action) => {
     return state;
 }
 
-export default postReducer;
+
+export const getAllPostReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'ON_LOADING':
+            return { ...state, loading: true }
+
+        case 'CLOSE_LOADING':
+            return { ...state, loading: false }
+    
+        case 'SET_POSTS': 
+            return {...state,posts:action.payload}
+        default: 
+            return state;
+    }
+}
