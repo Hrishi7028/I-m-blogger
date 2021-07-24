@@ -57,15 +57,15 @@ const CreateBlog = (props) => {
     }
     const submitPostdata = (e) => {
         e.preventDefault();
-        // console.log(state);
-        // console.log(slug);
-        // console.log(value);
+        console.log(state);
+        console.log(slug);
+        console.log(value);
         const formData = new FormData();
         formData.append('title', state.title);
         formData.append('image', state.image);
         formData.append('description', state.description);
         formData.append('post_body', value);
-        formData.append('slug', slug);
+        formData.append('slug', slug + "/" + uuid());
         formData.append('user', name);
         formData.append('_id', _id);
         dispatch(postBlog(formData));
@@ -87,7 +87,7 @@ const CreateBlog = (props) => {
             })
         }
         if(redirect) {
-            props.history.push('/dashboard');
+            props.history.push('/dashboard/1');
         }
     }, [postErrors,redirect])
 
@@ -112,7 +112,7 @@ const CreateBlog = (props) => {
                     <form onSubmit={submitPostdata}>
                         <h2 className="mb-3 postHeading">Create Your Post Here...</h2>
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-sm-12 col-md-12 col-12 col-lg-6">
                                 <div className="card">
                                     <div className="my-3 px-2">
                                         <label htmlFor="title">Enter title</label>
@@ -136,34 +136,6 @@ const CreateBlog = (props) => {
                                             onChange={handelImageName}
                                         />
                                     </div>
-                                    <div className="mt-1 mb-3 px-2">
-                                        <label className="post_body" htmlFor="post_body">Your post details are here...</label>
-                                        <ReactQuill theme="snow" value={value} onChange={setValue} />
-                                    </div>
-                                    <div className="mt-1 mb-3 px-2">
-                                        <button className="btn btn-outline-primary w-100 p-2">Create Post</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-6">
-                                <div className="card">
-                                    <div className="my-3 px-2">
-                                        <label htmlFor="slug">You can share this post with this link</label>
-                                        <input type="type"
-                                            className="form-control"
-                                            disabled
-                                            id="slug"
-                                            value={slug + "/" + uuid()}
-                                        />
-                                    </div>
-                                    <div className="my-3 px-2">
-                                        <div className="imagePreview">
-                                            {
-                                                imgPreview ? <img height="auto" alt="img" width="100%" src={imgPreview} /> : ''
-                                            }
-                                        </div>
-                                    </div>
                                     <div className="pb-3 px-2">
                                         <div className="form-floating">
                                             <textarea
@@ -176,6 +148,35 @@ const CreateBlog = (props) => {
                                                 style={{ height: "200px" }}></textarea>
 
                                         </div>
+                                    </div>
+                                    <div className="mt-1 mb-3 px-2">
+                                        <label className="post_body" htmlFor="post_body">Your post details are here...</label>
+                                        <ReactQuill theme="snow" value={value} onChange={setValue} />
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div className="col-sm-12 col-md-12 col-12 col-lg-6">
+                                <div className="card">
+                                    <div className="my-3 px-2">
+                                        <label htmlFor="slug">You can share this post with this link</label>
+                                        <input type="type"
+                                            className="form-control"
+                                            disabled
+                                            id="slug"
+                                            value={slug}
+                                        />
+                                    </div>
+                                    <div className="my-3 px-2">
+                                        <div className="imagePreview">
+                                            {
+                                                imgPreview ? <img height="auto" alt="img" width="100%" src={imgPreview} /> : ''
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="mt-1 mb-3 px-2">
+                                        <button className="btn btn-outline-primary w-100 p-2">Create Post</button>
                                     </div>
                                 </div>
                             </div>

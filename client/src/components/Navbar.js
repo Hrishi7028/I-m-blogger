@@ -19,10 +19,10 @@ const Navbar = () => {
       <Link className="nav-link active" to="/createblog"><span className="icon"><i className="fas fa-paper-plane"></i></span>Create Blog</Link>
     </li>
     <li className="nav-item">
-      <Link to='/dashboard' className="nav-link active name_icon" aria-current="page" > <span className="icon"><i className="fas fa-user"></i>{user.name}</span></Link>
+      <Link to='/dashboard/1' className="nav-link active name_icon" aria-current="page" > <span className="icon"><i className="fas fa-user"></i>{user.name}</span></Link>
     </li>
     <li className="nav-item">
-      <Link className="nav-link active" to="/register" onClick={handelLogout}><span className="icon"><i className="fas fa-sign-out-alt"></i></span>Logout</Link>
+      <Link className="nav-link active" to="/login" onClick={handelLogout}><span className="icon"><i className="fas fa-sign-out-alt"></i></span>Logout</Link>
     </li>
   </> : <>
     <li className="nav-item">

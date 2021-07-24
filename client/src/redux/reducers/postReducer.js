@@ -3,7 +3,9 @@ const initialState = {
     redirect: false,
     postErrors: [],
     message: '',
-    posts:[],
+    posts: [],
+    count: 0,
+    per_page_post: 0
 }
 
 export const postReducer = (state = initialState, action) => {
@@ -17,17 +19,18 @@ export const postReducer = (state = initialState, action) => {
         case 'POST_ERRORS':
             return { ...state, postErrors: action.payload }
 
-        case 'REMOVE_ERRORS' : 
-            return { ...state, postErrors:[]}
+        case 'REMOVE_ERRORS':
+            return { ...state, postErrors: [] }
 
         case 'REDIRECT_TRUE':
             return { ...state, redirect: true }
 
-        case 'SET_MESSAGE': 
-            return {...state, message: action.payload
+        case 'SET_MESSAGE':
+            return {
+                ...state, message: action.payload
             }
-        case 'REMOVE_MESSAGE' :
-            return {...state,message: ''}
+        case 'REMOVE_MESSAGE':
+            return { ...state, message: '' }
         case 'REDIRECT_FALSE':
             return { ...state, redirect: false }
         default:
@@ -43,10 +46,10 @@ export const getAllPostReducer = (state = initialState, action) => {
 
         case 'CLOSE_LOADING':
             return { ...state, loading: false }
-    
-        case 'SET_POSTS': 
-            return {...state,posts:action.payload}
-        default: 
+
+        case 'SET_POSTS':
+            return { ...state, posts: action.payload.posts, count: action.payload.count, per_page_post: action.payload.per_page_post }
+        default:
             return state;
     }
 }

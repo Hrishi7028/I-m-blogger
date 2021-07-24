@@ -1,0 +1,30 @@
+
+.pagination {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding-left: 2rem;
+}
+
+.page:nth-last-child(1) {
+    border-right:2px solid rgb(173, 173, 173);
+}
+
+.page {
+  display: inline-block;
+  padding: 5px 1rem;
+  /* position: relative; */
+  border-radius: 3px;
+  border-left: 2px solid rgb(173, 173, 173);
+  /* border-right: 2px solid rgb(173, 173, 173); */
+  border-bottom: 2px solid rgb(173, 173, 173);
+  border-top: 2px solid rgb(173, 173, 173);
+}
+
+.page .linkTag {
+    text-decoration: none;
+    color: black;
+    width: auto;
+    display: block;
+    height: auto;
+}

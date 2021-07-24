@@ -59,7 +59,7 @@ module.exports.createPost = (req, res) => {
                         })
                     }
                 } catch (error) {
-                    console.log(error);
+                    // console.log(error);
                     errors.push({ msg: error })
                     return res.status(500).json({
                         errors
@@ -76,14 +76,31 @@ module.exports.createPost = (req, res) => {
 
 module.exports.getAllPosts = async (req, res) => {
     const id = req.params.id;
-
-    console.log(id);
+    const page = req.params.page;
+    const per_page_post = 20;
+    const skip = (page - 1) * per_page_post;
+    // console.log(page);
+    // console.log( id);
     try {
-        const posts = await Post.find({ userId: id });
-        return res.status(200).json({ posts })
+        const count = await Post.find({ userId: id }).countDocuments();
+        const posts = await Post.find({ userId: id }).skip(skip).limit(per_page_post).sort({ updatedAt: -1 });
+        return res.status(200).json({ posts, count, per_page_post })
     } catch (error) {
         return res.status(500).json({
             error
         })
+    }
+}
+
+module.exports.deletePost = async (req, res) => {
+    const id = req.params.id
+    console.log(id);
+    try {
+        const response = await Post.findByIdAndRemove(id);
+        return res.status(200).json({
+            msg:"post has been deleted successfully",
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
