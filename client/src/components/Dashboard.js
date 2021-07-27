@@ -11,7 +11,8 @@ import copy from 'copy-to-clipboard';
 import '../style/dashboard.css'
 import Pagination from './Pagination'
 import axios from "axios";
-
+import Sidebar from "./Sidebar";
+import moment from "moment";
 
 
 const Dashboard = () => {
@@ -24,7 +25,7 @@ const Dashboard = () => {
     if (page_no === "undefined") {
         page_no = 1;
     }
-    console.log(page_no);
+    // console.log(page_no);
     const copyFunction = (index) => {
         // console.log(index);
         setIscopyText(false)
@@ -36,7 +37,7 @@ const Dashboard = () => {
     const deletePost = async (id) => {
         console.log(id);
         try {
-            const response  = await axios.get(`http://localhost:80/delete_post/${ id }`, {
+            const response = await axios.get(`http://localhost:80/delete_post/${ id }`, {
                 headers: {
                     authorization: `Bearer ${ token }`
                 }
@@ -71,7 +72,7 @@ const Dashboard = () => {
             })
             dispatch({ type: 'REMOVE_MESSAGE' })
         }
-    }, [message]);
+    }, [message, redirect]);
 
     // console.log(copyText);
 
@@ -93,22 +94,7 @@ const Dashboard = () => {
                 <div className="row">
 
                     <div className="col-lg-3 mb-5 col-sm-12 col-md-12">
-                        <div className="card">
-                            <div className="card-header font-weight-bold">
-                                Profile...
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">
-                                    <Link className="btn btn-default" to="/createblog">Change Name</Link>
-                                </li>
-                                <li className="list-group-item">
-                                    <Link className="btn btn-default" to="/createblog">Change Name</Link>
-                                </li>
-                                <li className="list-group-item">
-                                    <Link className="btn btn-default" to="/createblog">Change Name</Link>
-                                </li>
-                            </ul>
-                        </div>
+                        < Sidebar />
                     </div>
                     <div className="col-lg-9 col-sm-12 col-md-12">
                         {
@@ -121,14 +107,15 @@ const Dashboard = () => {
                                                 <i className={`far fa-clipboard mr-3 ${ copyText ? "showbtn" : "hidebtn" }`} style={{ float: 'right', cursor: 'pointer', padding: '5px', }} onClick={() => copyFunction(index)}></i>
                                             </div>
                                             <div className="card-body">
-                                                <h5 className="card-title">{post.title}</h5>
+                                                <h5 className="card-title post_title">{post.title}</h5>
+                                                <span className="relative_time">{moment(post.updatedAt).fromNow()}</span>
                                                 <p className="card-text">{post.decription}</p>
                                                 <button type="button" class="mt-3 btn btn-primary" onClick={() => deletePost(post._id)}>Delete Post</button>
                                             </div>
                                         </div>
                                     </div>
                                 )) : <h2>You have not created any post...</h2> :
-                                
+
                                 <SemipolarLoading
                                     size="large"
                                     className="check"

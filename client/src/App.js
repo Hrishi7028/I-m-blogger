@@ -13,6 +13,8 @@ import PrivateRoute from "./components/Private/PrivateRoutes";
 import Dashboard from "./components/Dashboard";
 import RouteLinks from "./components/Private/ReactLinks";
 import CreateBlog from "./components/CreateBlog";
+import Editname from "./components/Editname";
+import Changepassword from "./components/Changepassword";
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <RouteLinks exact path="/login" component={Login} />
             <PrivateRoute path="/dashboard/:page_no?" exact component={Dashboard} />
             <PrivateRoute path="/createblog" exact component={CreateBlog} />
+            <PrivateRoute path="/edit_name" exact component={Editname} />
+            <PrivateRoute path="/edit_password" exact component={Changepassword} />
           </Switch>
         </Router>
       </Provider>

@@ -3,12 +3,13 @@ import reduxThunk from 'redux-thunk'
 import AuthReducer from './reducers/AuthReducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { postReducer ,getAllPostReducer} from './reducers/postReducer'
-
+import {ProfileReducer} from './reducers/ProfileReducer'
 
 const rootReducer = combineReducers({
     AuthReducer,
     postReducer,
-    getAllPostReducer
+    getAllPostReducer,
+    ProfileReducer
 })
 
 const middlewares = [reduxThunk];

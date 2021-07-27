@@ -6,6 +6,9 @@ const connection = require('./config/db')
 const router = require('./routes/userRouters')
 const postRouter = require('./routes/postRouter')
 const bodyParser = require('body-parser');
+const profileRoute = require('./routes/EditProfile')
+
+
 // database connection 
 connection();
 
@@ -19,6 +22,9 @@ app.use('/',router);
 
 // all post routes
 app.use('/',postRouter)
+
+// all profile routes
+app.use('/',profileRoute)
 
 app.listen(process.env.PORT,() =>{
     console.log(`Server is running on port ${process.env.PORT} successfully`);

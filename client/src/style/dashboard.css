@@ -1,8 +1,18 @@
 .showbtn {
-    color:black;
-    /* background-color: black !important; */
+  color: black;
+  /* background-color: black !important; */
 }
 
 .hidebtn {
-    color:#bbbaba;
+  color: #bbbaba;
+}
+
+.post_title {
+    margin-bottom: 0.25rem;
+}
+
+.relative_time {
+  color: silver;
+  margin-top: -12px;
+  display: inline-block;
 }
