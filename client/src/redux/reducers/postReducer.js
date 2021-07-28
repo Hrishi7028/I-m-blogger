@@ -8,6 +8,9 @@ const initialState = {
     per_page_post: 0
 }
 
+
+
+
 export const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ON_LOADING':

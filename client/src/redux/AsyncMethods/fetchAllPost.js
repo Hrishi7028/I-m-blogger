@@ -1,5 +1,24 @@
 import axios from 'axios';
 
+
+export const allUposts = (page) => {
+    return async (dispatch) => {
+        dispatch({ type: 'ON_LOADING' });
+        try {
+            const {data:{posts,count,per_page_post}} = await axios.get(`http://localhost:80/home/${ page }`);
+            console.log(posts,count,per_page_post);
+            dispatch({ type: 'CLOSE_LOADING' });
+            dispatch({ type: 'SET_POSTS', payload: { posts, count, per_page_post } })
+            // console.log(posts, count, per_page_post);
+            
+        } catch (error) {
+            dispatch({ type: 'CLOSE_LOADING' });
+            console.log(error.response);
+        }
+            
+    }
+}
+
 export const fetchAllPost = (id, page) => {
     return async (dispatch, getState) => {
         console.log('called');

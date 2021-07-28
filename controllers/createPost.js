@@ -3,13 +3,34 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const Post = require('../models/postdata')
 
+
+module.exports.homePage = async (req, res) => {
+    const page = req.params.page;
+    const per_page_post = 5;
+    const skip = (page - 1) * per_page_post;
+
+    try {
+        const count = await Post.find().countDocuments();
+        const posts = await Post.find().skip(skip).limit(per_page_post).sort({ updatedAt: -1 })
+        return res.status(200).json({
+            posts, per_page_post, count
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error
+        })
+    }
+
+}
+
 module.exports.createPost = (req, res) => {
 
     const form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {
-        // console.log(fields, files);
+        console.log(fields, files);
         const errors = [];
-        const { title, image, description, post_body, _id, name, slug } = fields;
+        const { title, description, post_body, _id, user, slug } = fields;
 
         if (title.length === 0) {
             errors.push({ msg: 'Enter title properly' })
@@ -51,7 +72,7 @@ module.exports.createPost = (req, res) => {
                             description,
                             post_body,
                             userId: _id,
-                            name
+                            user
                         })
                         return res.status(200).json({
                             msg: "Post has been created successfully!!!",
@@ -77,7 +98,7 @@ module.exports.createPost = (req, res) => {
 module.exports.getAllPosts = async (req, res) => {
     const id = req.params.id;
     const page = req.params.page;
-    const per_page_post = 20;
+    const per_page_post = 2;
     const skip = (page - 1) * per_page_post;
     // console.log(page);
     // console.log( id);
@@ -98,7 +119,7 @@ module.exports.deletePost = async (req, res) => {
     try {
         const response = await Post.findByIdAndRemove(id);
         return res.status(200).json({
-            msg:"post has been deleted successfully",
+            msg: "post has been deleted successfully",
         })
     } catch (error) {
         console.log(error)

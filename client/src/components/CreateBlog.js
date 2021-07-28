@@ -1,7 +1,7 @@
 import '../style/CreatePost.css'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { uuid } from 'uuidv4';
 import { useSelector, useDispatch } from 'react-redux';
 import { postBlog } from '../redux/AsyncMethods/postBlog';
@@ -18,7 +18,7 @@ const CreateBlog = (props) => {
 
     const dispatch = useDispatch();
     const { user: { _id, name } } = useSelector((state) => (state.AuthReducer));
-    const { postErrors,redirect } = useSelector((state) => (state.postReducer));
+    const { postErrors, redirect } = useSelector((state) => (state.postReducer));
     const handelImageName = e => {
 
         e.preventDefault();
@@ -86,10 +86,10 @@ const CreateBlog = (props) => {
                     }))
             })
         }
-        if(redirect) {
+        if (redirect) {
             props.history.push('/dashboard/1');
         }
-    }, [postErrors,redirect])
+    }, [postErrors, redirect,props.history])
 
 
     return (
@@ -153,7 +153,7 @@ const CreateBlog = (props) => {
                                         <label className="post_body" htmlFor="post_body">Your post details are here...</label>
                                         <ReactQuill theme="snow" value={value} onChange={setValue} />
                                     </div>
-                                    
+
                                 </div>
                             </div>
 

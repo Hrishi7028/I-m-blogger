@@ -21,11 +21,11 @@ const Dashboard = () => {
     const { user: { _id }, token } = useSelector((state) => (state.AuthReducer))
     const { posts, loading, count, per_page_post } = useSelector((state) => (state.getAllPostReducer))
     const [copyText, setIscopyText] = useState(true)
-    let { page_no } = useParams()
-    if (page_no === "undefined") {
-        page_no = 1;
+    let { page } = useParams()
+    if (page === undefined) {
+        page = 1;
     }
-    // console.log(page_no);
+    // console.log(page);
     const copyFunction = (index) => {
         // console.log(index);
         setIscopyText(false)
@@ -44,15 +44,15 @@ const Dashboard = () => {
             })
             console.log(response);
             console.log(response.data.msg)
-            dispatch(fetchAllPost(_id, page_no));
+            dispatch(fetchAllPost(_id, page));
             dispatch({ type: 'SET_MESSAGE', payload: response.data.msg })
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
-        dispatch(fetchAllPost(_id, page_no));
-    }, [page_no])
+        dispatch(fetchAllPost(_id, page));
+    }, [page])
 
 
     useEffect(() => {
@@ -100,7 +100,7 @@ const Dashboard = () => {
                         {
                             !loading ?
                                 posts.length > 0 ? posts.map((post, index) => (
-                                    <div>
+                                    (<div>
                                         <div className="card mb-3">
                                             <div className="card-header">
                                                 {post.slug}
@@ -113,7 +113,7 @@ const Dashboard = () => {
                                                 <button type="button" class="mt-3 btn btn-primary" onClick={() => deletePost(post._id)}>Delete Post</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>)
                                 )) : <h2>You have not created any post...</h2> :
 
                                 <SemipolarLoading
@@ -122,11 +122,14 @@ const Dashboard = () => {
                                 />
 
                         }
-                        {/* <Pagination
-                            page={page_no}
-                            per_page_post={per_page_post}
+                        {
+                            posts.length > 0 && !loading ?
+                        <Pagination
                             count={count}
-                        /> */}
+                            page={page}
+                            per_page_post={per_page_post}
+                        /> :''
+                        }
                     </div>
 
                 </div>
