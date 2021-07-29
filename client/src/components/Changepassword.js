@@ -41,11 +41,11 @@ const Changepassword = () => {
                         pauseOnHover: true,
                         draggable: true,
                         progress: undefined
-                    })
+                    })  
                 )
             })
         }
-    }, [profileError,redirect])
+    }, [profileError,redirect,push])
 
     return (
         <div className="custome_container mt-5">

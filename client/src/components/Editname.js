@@ -13,7 +13,7 @@ const Editname = (props) => {
     const {push} = useHistory()
     const { user: { name, _id } } = useSelector((state) => (state.AuthReducer))
     // console.log(name,_id);
-    const {message,redirect} = useSelector((state) => (state.postReducer));
+    const {redirect} = useSelector((state) => (state.postReducer));
     const { profileError } = useSelector((state) => (state.ProfileReducer))
     const dispatch = useDispatch()
     const [userName, setUserName] = useState('');
@@ -28,22 +28,8 @@ const Editname = (props) => {
     useEffect(() => {
 
         if (redirect) {
-            // dispatch({ type: 'REMOVE_ERRORS' })
             push('/dashboard')
-            // dispatch({ type: 'REDIRECT_FALSE' })
         }
-        // if (message) {
-        //     toast.success(message, {
-        //         position: 'top-right',
-        //         autoClose: 2000,
-        //         hideProgressBar: true,
-        //         closeOnClick: false,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined
-        //     })
-        //     dispatch({ type: 'REMOVE_MESSAGE' })
-        // }
 
         if (profileError.length > 0) {
             profileError.map((error) => {

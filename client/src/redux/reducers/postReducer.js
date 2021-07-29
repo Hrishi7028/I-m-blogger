@@ -5,7 +5,8 @@ const initialState = {
     message: '',
     posts: [],
     count: 0,
-    per_page_post: 0
+    per_page_post: 0,
+    single_post: {}
 }
 
 
@@ -36,9 +37,10 @@ export const postReducer = (state = initialState, action) => {
             return { ...state, message: '' }
         case 'REDIRECT_FALSE':
             return { ...state, redirect: false }
+
         default:
+            return state;
     }
-    return state;
 }
 
 
@@ -52,6 +54,11 @@ export const getAllPostReducer = (state = initialState, action) => {
 
         case 'SET_POSTS':
             return { ...state, posts: action.payload.posts, count: action.payload.count, per_page_post: action.payload.per_page_post }
+
+        case 'SHOW_USER_POST':
+            return { ...state, single_post: action.payload }
+        case 'REMOVE_USER_POST':
+            return { ...state, single_post: {} }
         default:
             return state;
     }

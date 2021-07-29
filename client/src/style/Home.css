@@ -1,4 +1,9 @@
+body{
+  background-color: #e4e4e4;
+}
+
 .avtar_header {
+  background-color: white!important;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -57,3 +62,7 @@
   border: 2px solid grey;
   border-radius: 4px;
 }
+
+/* .image_section img {
+  border-radius: 4px;
+} */

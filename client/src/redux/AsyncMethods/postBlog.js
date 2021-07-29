@@ -6,7 +6,7 @@ export const postBlog = (formData) => {
         const { AuthReducer: { token } } = getState()
         dispatch({ type: 'ON_LOADING' })
         try {
-            const response = await axios.post('http://localhost:80/create_post', formData, {
+            const response = await axios.post('/create_post', formData, {
                 headers: {
                     'Authorization': `Bearer ${ token }`
                 }

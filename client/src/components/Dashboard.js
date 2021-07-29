@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { fetchAllPost } from "../redux/AsyncMethods/fetchAllPost";
-import { Link } from 'react-router-dom'
 import { SemipolarLoading } from 'react-loadingg';
 import copy from 'copy-to-clipboard';
 import '../style/dashboard.css'
@@ -15,7 +14,7 @@ import Sidebar from "./Sidebar";
 import moment from "moment";
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const { redirect, message } = useSelector((state) => (state.postReducer));
     const dispatch = useDispatch()
     const { user: { _id }, token } = useSelector((state) => (state.AuthReducer))
@@ -25,19 +24,18 @@ const Dashboard = () => {
     if (page === undefined) {
         page = 1;
     }
-    // console.log(page);
+
     const copyFunction = (index) => {
-        // console.log(index);
+
         setIscopyText(false)
         console.log(copyText);
         copy(posts[index].slug);
     }
-    // console.log('outside: ' + copyText);
 
     const deletePost = async (id) => {
         console.log(id);
         try {
-            const response = await axios.get(`http://localhost:80/delete_post/${ id }`, {
+            const response = await axios.get(`/delete_post/${ id }`, {
                 headers: {
                     authorization: `Bearer ${ token }`
                 }
@@ -103,7 +101,7 @@ const Dashboard = () => {
                                     (<div>
                                         <div className="card mb-3">
                                             <div className="card-header">
-                                                {post.slug}
+                                                {post._id}
                                                 <i className={`far fa-clipboard mr-3 ${ copyText ? "showbtn" : "hidebtn" }`} style={{ float: 'right', cursor: 'pointer', padding: '5px', }} onClick={() => copyFunction(index)}></i>
                                             </div>
                                             <div className="card-body">
@@ -123,12 +121,13 @@ const Dashboard = () => {
 
                         }
                         {
-                            posts.length > 0 && !loading ?
-                        <Pagination
-                            count={count}
-                            page={page}
-                            per_page_post={per_page_post}
-                        /> :''
+                            posts.length > 0 && !loading && page > 1?
+                                <Pagination
+                                    count={count}
+                                    page={page}
+                                    pageLink={'/dashboard'}
+                                    per_page_post={per_page_post}
+                                /> : ''
                         }
                     </div>
 

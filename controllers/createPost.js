@@ -24,6 +24,22 @@ module.exports.homePage = async (req, res) => {
 
 }
 
+module.exports.detailPost = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    console.log('hello');
+    try {
+        const post = await Post.findOne({ _id: id });
+        return res.status(200).json({ post })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error
+        })
+    }
+}
+
 module.exports.createPost = (req, res) => {
 
     const form = formidable({ multiples: true });

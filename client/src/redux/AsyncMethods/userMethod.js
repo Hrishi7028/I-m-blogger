@@ -4,7 +4,7 @@ import axios from 'axios'
 export const postRegisterData = (state, props) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('http://localhost:80/register', state, {
+            const response = await axios.post('/register', state, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -27,7 +27,7 @@ export const postRegisterData = (state, props) => {
 export const postLoginData = (state) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.post('http://localhost:80/login', state, {
+            const { data } = await axios.post('/login', state, {
                 header: {
                     'Content-Type': 'application/json'
                 }

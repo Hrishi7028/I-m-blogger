@@ -151,7 +151,7 @@ const CreateBlog = (props) => {
                                     </div>
                                     <div className="mt-1 mb-3 px-2">
                                         <label className="post_body" htmlFor="post_body">Your post details are here...</label>
-                                        <ReactQuill theme="snow" value={value} onChange={setValue} />
+                                        <ReactQuill theme="snow"  value={value} onChange={setValue} />
                                     </div>
 
                                 </div>

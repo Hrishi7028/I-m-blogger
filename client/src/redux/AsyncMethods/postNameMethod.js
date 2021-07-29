@@ -9,7 +9,7 @@ export const postNameMethod = (user) => {
         dispatch({ type: 'ON_LOADING' })
         try {
             dispatch({ type: 'CLOSE_LOADING' })
-            const response = await axios.post('http://localhost:80/edit_name', user, {
+            const response = await axios.post('/edit_name', user, {
                 headers: {
                     'Authorization': `Bearer ${ token }`
                 }
@@ -37,7 +37,7 @@ export const postPasswordMethod = (user) => {
         const { AuthReducer: { token } } = getState();
         console.log(token);
         try {
-            const response = await axios.post(`http://localhost:80/change_password`, user, {
+            const response = await axios.post(`/change_password`, user, {
                 headers: {
                     'Authorization': `Bearer ${ token }`
                 }

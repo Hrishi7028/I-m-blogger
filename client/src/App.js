@@ -15,6 +15,7 @@ import RouteLinks from "./components/Private/ReactLinks";
 import CreateBlog from "./components/CreateBlog";
 import Editname from "./components/Editname";
 import Changepassword from "./components/Changepassword";
+import DetailPost from "./components/DetailPost";
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="home/:page?" component={Home} />
+            <Route exact path="/home/:page?" component={Home} />
+            <Route exact path="/detail/:id" component={DetailPost} />
             <RouteLinks exact path="/register" component={Register} />
             <RouteLinks exact path="/login" component={Login} />
             <PrivateRoute path="/dashboard/:page?" exact component={Dashboard} />
