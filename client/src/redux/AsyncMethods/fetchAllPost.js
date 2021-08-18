@@ -50,14 +50,33 @@ export const singlePost = (id) => {
         try {
             const response = await axios.get(`/explore/${ id }`)
             console.log(response.data.post);
+            console.log(response.data.comment);
+            // console.log(response.data.getAllPost);
             dispatch({ type: 'SHOW_USER_POST', payload: response.data.post })
+            dispatch({ type: 'SHOW_COMMENTS', payload: response.data.comment })
             dispatch({ type: 'CLOSE_LOADING' })
-            // setTimeout(() => dispatch({ type: 'CLOSE_LOADING' }), 10000)
-
-            // dispatch({ type: ''})
         } catch (error) {
             console.log(error);
             dispatch({ type: 'CLOSE_LOADING' })
+        }
+    }
+}
+
+export const send_Comment = (commentData) => {
+    return async (dispatch, getState) => {
+        const { AuthReducer: { token } } = getState()
+        dispatch({ type: 'ON_LOADING' });
+        try {
+            const response = await axios.post(`/add_comment`, commentData, {
+                headers: { Authorization: `Bearer ${ token }` }
+            })
+            dispatch({ type: 'SHOW_COMMENTS', payload: response.data.getAllPost })
+            dispatch({ type: 'CLOSE_LOADING' })
+            console.log(response);
+        } catch (error) {
+            dispatch({ type: 'CLOSE_LOADING' })
+            console.log(error);
+
         }
     }
 }

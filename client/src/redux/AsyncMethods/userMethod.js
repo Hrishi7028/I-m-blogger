@@ -36,12 +36,33 @@ export const postLoginData = (state) => {
             dispatch({ type: 'CLOSE_LOADING' })
             localStorage.setItem('User_key', data.token)
             dispatch({ type: 'SET_USER', payload: data.token })
-            
+
             console.log(data);
         } catch (error) {
             console.log(error.response.data.errors);
             dispatch({ type: 'CLOSE_LOADING' })
             dispatch({ type: 'LOGIN_ERROR', payload: error.response.data.errors });
+        }
+    }
+}
+
+export const postEmail = (email) => {
+    return async (dispatch) => {
+
+
+        dispatch({ type: 'ON_LOADING' });
+
+        try {
+
+            const response = await axios.post('/forget-password', { email })
+            console.log(response.data.msg);
+            dispatch({ type: 'CLOSE_LOADING' });
+            dispatch({ type: 'SET_MESSAGE', payload: response.data.msg })
+            console.log(email)
+        } catch (err) {
+            dispatch({ type: 'CLOSE_LOADING' });
+            dispatch({ type: 'SET_MESSAGE', payload: err.response.data.error })
+            console.log(err.response.data.error)
         }
     }
 }

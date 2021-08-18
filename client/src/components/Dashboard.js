@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { fetchAllPost } from "../redux/AsyncMethods/fetchAllPost";
 import { SemipolarLoading } from 'react-loadingg';
-import copy from 'copy-to-clipboard';
 import '../style/dashboard.css'
 import Pagination from './Pagination'
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import moment from "moment";
-
+import { htmlToText } from 'html-to-text';
 
 const Dashboard = (props) => {
     const { redirect, message } = useSelector((state) => (state.postReducer));
@@ -29,7 +28,7 @@ const Dashboard = (props) => {
 
         setIscopyText(false)
         console.log(copyText);
-        copy(posts[index].slug);
+        // copy(posts[index].slug);
     }
 
     const deletePost = async (id) => {
@@ -70,7 +69,7 @@ const Dashboard = (props) => {
             })
             dispatch({ type: 'REMOVE_MESSAGE' })
         }
-    }, [message, redirect]);
+    }, [message, redirect, dispatch]);
 
     // console.log(copyText);
 
@@ -101,11 +100,10 @@ const Dashboard = (props) => {
                                     (<div>
                                         <div className="card mb-3">
                                             <div className="card-header">
-                                                {post._id}
-                                                <i className={`far fa-clipboard mr-3 ${ copyText ? "showbtn" : "hidebtn" }`} style={{ float: 'right', cursor: 'pointer', padding: '5px', }} onClick={() => copyFunction(index)}></i>
+                                                <Link to={`/detail/${ post._id }`} className="title_link text-dark fs-3 text-capitalize">{post.title}</Link>
                                             </div>
                                             <div className="card-body">
-                                                <h5 className="card-title post_title">{post.title}</h5>
+                                                <h5 className="card-title post_title">{htmlToText(post.post_body.substr(0, 50))}</h5>
                                                 <span className="relative_time">{moment(post.updatedAt).fromNow()}</span>
                                                 <p className="card-text">{post.decription}</p>
                                                 <button type="button" class="mt-3 btn btn-primary" onClick={() => deletePost(post._id)}>Delete Post</button>
@@ -121,7 +119,7 @@ const Dashboard = (props) => {
 
                         }
                         {
-                            posts.length > 0 && !loading && page > 1?
+                            posts.length > 0 && !loading && page > 1 ?
                                 <Pagination
                                     count={count}
                                     page={page}

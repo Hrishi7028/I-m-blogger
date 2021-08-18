@@ -7,6 +7,7 @@ import {
 import { Provider } from "react-redux"
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Forget from "./components/auth/Forget";
 import Home from "./components/Home";
 import store from "./redux/store";
 import PrivateRoute from "./components/Private/PrivateRoutes";
@@ -30,6 +31,7 @@ function App() {
             <Route exact path="/detail/:id" component={DetailPost} />
             <RouteLinks exact path="/register" component={Register} />
             <RouteLinks exact path="/login" component={Login} />
+            <RouteLinks exact path="/forget" component={Forget} />
             <PrivateRoute path="/dashboard/:page?" exact component={Dashboard} />
             <PrivateRoute path="/createblog" exact component={CreateBlog} />
             <PrivateRoute path="/edit_name" exact component={Editname} />

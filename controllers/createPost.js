@@ -2,7 +2,7 @@ const formidable = require('formidable');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const Post = require('../models/postdata')
-
+const Comment = require('../models/Comment')
 
 module.exports.homePage = async (req, res) => {
     const page = req.params.page;
@@ -30,7 +30,9 @@ module.exports.detailPost = async (req, res) => {
     console.log('hello');
     try {
         const post = await Post.findOne({ _id: id });
-        return res.status(200).json({ post })
+        const comment = await Comment.find({ postId: id }).sort({ updatedAt: -1 })
+        console.log(comment);
+        return res.status(200).json({ post, comment })
 
     } catch (error) {
         console.log(error);
@@ -139,5 +141,34 @@ module.exports.deletePost = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
+        error
     }
 }
+
+module.exports.commentRouter = async (req, res) => {
+    const { postId, userName, comment } = req.body.commentData;
+    console.log(userName, postId, comment);
+    console.log('hello');
+    try {
+        const response = await Comment.create({
+            postId,
+            userName,
+            comment
+        })
+        const getAllPost = await Comment.find({ postId: postId }).sort({ updatedAt: -1 })
+        console.log('saved');
+        return res.status(200).json({
+            msg: 'Your comment has been published!',
+            response,
+            getAllPost
+        })
+    } catch (error) {
+        error
+        return res.status(560).json({
+            error: 'internal server error'
+        })
+    }
+
+
+}
+

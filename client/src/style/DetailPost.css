@@ -1,3 +1,21 @@
-.detail_img img{
-    border-radius: 10px;
+.slug_input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.copy_clip_board {
+  margin-left: -23px;
+}
+
+.detail_img img {
+  border-radius: 10px;
+}
+
+.comment_box {
+  border: 1px solid #ccc;
+  background: white;
+  margin-top: 7px;
+  padding: 5px;
+  border-radius: 7px;
 }

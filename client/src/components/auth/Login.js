@@ -104,6 +104,8 @@ const Login = () => {
                             <div className="form-group">
                                 <input type="submit" className="btn btn-warning w-100" value={loading ? "wait" : "Login"} id="login" />
                             </div>
+                            
+                            <p className="text-center"><Link to="/forget">forget password</Link></p>
                             <p className="text-center">Don't have an account? <Link to="/register"> Sign up</Link></p>
                             <small id="passwordHelp" className="form-text text-muted mt-3">By continuing, you agree to I'm Blogger's
                                 <span><Link to="#"> Conditions of Use</Link></span> and <span><Link to="#">Privacy

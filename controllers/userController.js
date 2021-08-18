@@ -3,6 +3,13 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const sgMail = require('@sendgrid/mail');
+const { v4: uuidv4 } = require('uuid');
+ // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+
 
 
 const userToken = (user) => {
@@ -47,6 +54,26 @@ module.exports.register = async (req, res) => {
             });
 
             const token = userToken(user);
+
+            const msg = {
+                to: user.email,
+                from: 'hrishikeshsuryavanshi513@gmail.com',
+                subject: 'Sign up Successfuly!!',
+                html: `<strong>Thanks for using I'm-Blooger web app</strong>`,
+            };
+
+            (async () => {
+                try {
+                    await sgMail.send(msg);
+                } catch (error) {
+                    console.error(error);
+
+                    if (error.response) {
+                        console.error(error.response.body)
+                    }
+                }
+            })();
+
             return res.status(200).json({
                 msg: 'Account has been created successfully',
                 token
@@ -83,7 +110,7 @@ module.exports.login = async (req, res) => {
         const checkEmail = await User.findOne({ email });
         if (!checkEmail) {
             return res.status(404).json({
-                errors: [{ msg:"Email does not exist Enter correct email"}]
+                errors: [{ msg: "Email does not exist Enter correct email" }]
             })
         }
         try {
@@ -113,4 +140,53 @@ module.exports.login = async (req, res) => {
             errors: [{ msg: error }]
         })
     }
+}
+
+
+
+module.exports.forget_password_controller = async (req, res) => {
+    const email = req.body.email
+    console.log(email)
+
+    try {
+        const user = await User.findOne({ email: email })
+        if (!user) {
+            return res.status(404).json({
+                error: "User does not exist..."
+            })
+        }
+
+        const token = uuidv4().toString();
+        user.passwordToken = token;
+        user.tokenExpire = Date.now() + 900000
+        const saveduser = await user.save();
+        const msg = {
+            to: user.email,
+            from: 'hrishikeshsuryavanshi513@gmail.com',
+            subject: 'reset password',
+            html: '<p>You are requested for change password click this link to change password<strong><a href=`http://localhost:3000/forget/${pareseInt(token)}` target="_"> link</a></strong></p>',
+        };
+
+        (async () => {
+            try {
+                await sgMail.send(msg);
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                    console.error(error.response.body)
+                }
+            }
+        })();
+        console.log(saveduser)
+        return res.json({
+            
+            msg: "Verification link has been sent to your email-id successfully!!"
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
 }

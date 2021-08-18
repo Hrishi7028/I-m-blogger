@@ -6,7 +6,8 @@ const initialState = {
     posts: [],
     count: 0,
     per_page_post: 0,
-    single_post: {}
+    single_post: {},
+    comments:[]
 }
 
 
@@ -57,6 +58,9 @@ export const getAllPostReducer = (state = initialState, action) => {
 
         case 'SHOW_USER_POST':
             return { ...state, single_post: action.payload }
+        
+        case 'SHOW_COMMENTS':
+            return {...state,comments:action.payload}
         case 'REMOVE_USER_POST':
             return { ...state, single_post: {} }
         default:
