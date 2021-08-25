@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const sgMail = require('@sendgrid/mail');
 const { v4: uuidv4 } = require('uuid');
- // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+const { errors } = require('formidable');
+// ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -93,7 +94,7 @@ module.exports.register = async (req, res) => {
 // login validation
 module.exports.loginValidation = [
     body('email').not().isEmpty().withMessage('Email shoud be entered'),
-    body('password').isLength({ min: 8 }).withMessage('password length should minimum 8')
+    body('password').isLength({ min: 8 }).withMessage('password length should be minimum 8')
 ]
 
 
@@ -143,6 +144,10 @@ module.exports.login = async (req, res) => {
 }
 
 
+module.exports.reset_PasswordValidation = [
+    body('password').isLength({ min: 8 }).withMessage('password length should minimum 8'),
+    body('cpassword').isLength({ min: 8 }).withMessage('password length should minimum 8')
+]
 
 module.exports.forget_password_controller = async (req, res) => {
     const email = req.body.email
@@ -158,13 +163,16 @@ module.exports.forget_password_controller = async (req, res) => {
 
         const token = uuidv4().toString();
         user.passwordToken = token;
-        user.tokenExpire = Date.now() + 900000
+        user.tokenExpire = Date.now() + 1800000;
         const saveduser = await user.save();
         const msg = {
             to: user.email,
             from: 'hrishikeshsuryavanshi513@gmail.com',
             subject: 'reset password',
-            html: '<p>You are requested for change password click this link to change password<strong><a href=`http://localhost:3000/forget/${pareseInt(token)}` target="_"> link</a></strong></p>',
+            html: `<p>You are requested for change password</p>
+            <h3>click this link to change password<strong><a href="http://localhost:3000/forget/${ token }" target="_"> link</a></strong></h3>
+            <small>this link will expire after 30 minutes</small>
+            `,
         };
 
         (async () => {
@@ -178,9 +186,9 @@ module.exports.forget_password_controller = async (req, res) => {
                 }
             }
         })();
-        console.log(saveduser)
+        console.log("saved user is: " + saveduser)
         return res.json({
-            
+
             msg: "Verification link has been sent to your email-id successfully!!"
         })
 
@@ -189,4 +197,30 @@ module.exports.forget_password_controller = async (req, res) => {
     }
 
 
+}
+
+module.exports.reset_password = async (req, res) => {
+    const { password, client_Id } = req.body;
+    console.log(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({
+            error: 'password length should be minimum 8'
+        })
+    }
+        const user = await User.findOne({ passwordToken: client_Id, tokenExpire: { $gt: Date.now() } });
+    console.log("password reseted: " + user);
+
+    if (!user) {
+        return res.status(400).json({
+            error: 'Token has been expired...'
+        })
+    }
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    user.password = hashed_password;
+    await user.save();
+    return res.status(200).json({
+        msg: "Password has been reseted successfully!"
+    })
 }

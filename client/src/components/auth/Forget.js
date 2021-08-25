@@ -4,12 +4,16 @@ import { postEmail } from '../../redux/AsyncMethods/userMethod';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { useHistory } from 'react-router-dom';
 
 const Forget = () => {
 
     const dispatch = useDispatch();
     const { loading, message } = useSelector(state => state.postReducer)
     const [email, setEmail] = useState('');
+    const history = useHistory()
+
+
     const submitEmail = (e) => {
         e.preventDefault();
         dispatch(postEmail(email))
@@ -41,10 +45,12 @@ const Forget = () => {
                     draggable: true,
                     progress: undefined,
                 }))
+
+                setTimeout(() => { history.push('/login') }, 2000)
             }
             dispatch({ type: 'REMOVE_MESSAGE' })
         }
-    }, [message, dispatch])
+    }, [message, dispatch, history])
     return (
         <>
             <ToastContainer

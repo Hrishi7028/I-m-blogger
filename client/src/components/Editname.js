@@ -10,10 +10,10 @@ import { useHistory } from "react-router-dom";
 
 
 const Editname = (props) => {
-    const {push} = useHistory()
+    const { push } = useHistory()
     const { user: { name, _id } } = useSelector((state) => (state.AuthReducer))
     // console.log(name,_id);
-    const {redirect} = useSelector((state) => (state.postReducer));
+    const { redirect } = useSelector((state) => (state.postReducer));
     const { profileError } = useSelector((state) => (state.ProfileReducer))
     const dispatch = useDispatch()
     const [userName, setUserName] = useState('');
@@ -46,11 +46,11 @@ const Editname = (props) => {
                 )
             })
         }
-    }, [profileError,redirect])
+    }, [profileError, redirect, push])
 
     return (
-    
-    <div className="custome_container mt-5">
+
+        <div className="custome_container mt-5">
             <ToastContainer
                 position="top-right"
                 autoClose={2000}
@@ -99,7 +99,7 @@ const Editname = (props) => {
             </div>
 
         </div>
-    
+
     )
 }
 

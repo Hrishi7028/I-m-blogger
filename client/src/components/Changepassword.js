@@ -12,7 +12,6 @@ const Changepassword = () => {
     const {user:{_id}} = useSelector((state) => (state.AuthReducer))
     const {redirect} = useSelector((state) => (state.postReducer))
     const dispatch = useDispatch()
-    // console.log(_id);
     const {push} = useHistory()
     const [state, setState] = useState({
         curr_pass: '',
@@ -22,7 +21,6 @@ const Changepassword = () => {
 
     const setPassword = (e) => {
         e.preventDefault()
-        // console.log(state);
         dispatch(postPasswordMethod({curr_pass:state.curr_pass,new_pass:state.new_pass,_id}))
     }
     console.log(profileError);
@@ -66,12 +64,13 @@ const Changepassword = () => {
                 </div>
 
                 <div className="col-lg-6 col-sm-12 col-md-12">
-                    <form onSubmit={setPassword} autoComplete="off">
+                    <form onSubmit={setPassword} autoComplete="nope">
                         <div className="form-group">
-                            <label htmlFor="curr_name">Current Name: </label>
+                            <label htmlFor="curr_name">Current Passsword: </label>
                             <input
                                 type="password"
                                 className="form-control"
+                                autoComplete="nope"
                                 id="curr_pass"
                                 onChange={(e) => setState({ ...state, curr_pass: e.target.value })}
                                 value={state.curr_pass}
@@ -86,7 +85,7 @@ const Changepassword = () => {
                                 id="new_pass"
                                 value={state.new_pass}
                                 placeholder="Enter New Password"
-                                // autoComplete="off"
+                                autoComplete="nope"
                                 onChange={(e) => setState({ ...state, new_pass: e.target.value })}
                             />
                         </div>

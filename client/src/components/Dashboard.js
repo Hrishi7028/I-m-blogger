@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,21 +18,18 @@ const Dashboard = (props) => {
     const dispatch = useDispatch()
     const { user: { _id }, token } = useSelector((state) => (state.AuthReducer))
     const { posts, loading, count, per_page_post } = useSelector((state) => (state.getAllPostReducer))
-    const [copyText, setIscopyText] = useState(true)
+
     let { page } = useParams()
     if (page === undefined) {
         page = 1;
     }
 
-    const copyFunction = (index) => {
-
-        setIscopyText(false)
-        console.log(copyText);
-        // copy(posts[index].slug);
-    }
-
     const deletePost = async (id) => {
-        console.log(id);
+        const isTrue = window.confirm('Do you want to delete this post?')
+        console.log(isTrue);
+        if (!isTrue) {
+            return;
+        }
         try {
             const response = await axios.get(`/delete_post/${ id }`, {
                 headers: {
@@ -49,7 +46,7 @@ const Dashboard = (props) => {
     }
     useEffect(() => {
         dispatch(fetchAllPost(_id, page));
-    }, [page])
+    }, [page, dispatch, _id])
 
 
     useEffect(() => {
@@ -70,8 +67,6 @@ const Dashboard = (props) => {
             dispatch({ type: 'REMOVE_MESSAGE' })
         }
     }, [message, redirect, dispatch]);
-
-    // console.log(copyText);
 
     return (
         <>

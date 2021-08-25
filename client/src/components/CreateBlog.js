@@ -19,8 +19,10 @@ const CreateBlog = (props) => {
     const dispatch = useDispatch();
     const { user: { _id, name } } = useSelector((state) => (state.AuthReducer));
     const { postErrors, redirect } = useSelector((state) => (state.postReducer));
+    
+    
+    
     const handelImageName = e => {
-
         e.preventDefault();
         if (e.target.files.length > 0) {
             let file = e.target.files[0].name;

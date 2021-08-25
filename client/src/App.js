@@ -17,6 +17,7 @@ import CreateBlog from "./components/CreateBlog";
 import Editname from "./components/Editname";
 import Changepassword from "./components/Changepassword";
 import DetailPost from "./components/DetailPost";
+import Reset_password from "./components/auth/Reset_password";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <RouteLinks exact path="/register" component={Register} />
             <RouteLinks exact path="/login" component={Login} />
             <RouteLinks exact path="/forget" component={Forget} />
+            <RouteLinks exact path="/forget/:uuid" component={Reset_password} />
             <PrivateRoute path="/dashboard/:page?" exact component={Dashboard} />
             <PrivateRoute path="/createblog" exact component={CreateBlog} />
             <PrivateRoute path="/edit_name" exact component={Editname} />

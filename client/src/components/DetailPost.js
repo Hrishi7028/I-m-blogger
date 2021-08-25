@@ -7,7 +7,6 @@ import moment from 'moment'
 import { htmlToText } from 'html-to-text';
 import { SemipolarLoading } from 'react-loadingg';
 import Comments from './Comments';
-import copy from 'copy-to-clipboard';
 
 const DetailPost = () => {
     const dispatch = useDispatch()

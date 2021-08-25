@@ -67,4 +67,27 @@ export const postEmail = (email) => {
     }
 }
 
+export const send_Password = (state) => {
+    return async (dispatch) => {
+        console.log(state);
+        dispatch({type:'ON_LOADING'})
+        if(state.password !== state.cpassword) {
+            dispatch({type:'CLOSE_LOADING'})
+            dispatch({type:'SET_MESSAGE',payload:'Password does not match'})
+            return
+        }
+        try {
+            const response = await axios.post(`/reset-password/${state.client_Id}`,state)
+            dispatch({type:'CLOSE_LOADING'})
+            console.log(response);
+            dispatch({ type: 'SET_MESSAGE', payload: response.data.msg })
+            
+            
+        } catch (error) {
+            dispatch({type:'CLOSE_LOADING'})
+            dispatch({ type: 'SET_MESSAGE', payload: error.response.data.error })
+            console.log(error.response);
+        }
 
+    }
+}

@@ -6,7 +6,7 @@ const Comment = require('../models/Comment')
 
 module.exports.homePage = async (req, res) => {
     const page = req.params.page;
-    const per_page_post = 5;
+    const per_page_post = 100;
     const skip = (page - 1) * per_page_post;
 
     try {
@@ -116,7 +116,7 @@ module.exports.createPost = (req, res) => {
 module.exports.getAllPosts = async (req, res) => {
     const id = req.params.id;
     const page = req.params.page;
-    const per_page_post = 2;
+    const per_page_post = 100;
     const skip = (page - 1) * per_page_post;
     // console.log(page);
     // console.log( id);

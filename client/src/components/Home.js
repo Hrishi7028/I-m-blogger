@@ -20,7 +20,7 @@ const Home = () => {
     }
     useEffect(() => {
         dispatch(allUposts(page));
-    }, [page])
+    }, [page, dispatch])
 
     return (
         <>
