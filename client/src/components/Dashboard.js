@@ -81,7 +81,7 @@ const Dashboard = (props) => {
                 draggable
                 pauseOnHover
             />
-            <div className="custome_container mt-5">
+            <div className="profile_custome_container mt-5">
 
                 <div className="row">
 

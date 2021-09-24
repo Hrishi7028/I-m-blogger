@@ -8,12 +8,13 @@
 .postHeading {
   font-family: 'Grand Hotel', cursive;
   font-weight: bold;
+  text-align: center;
   letter-spacing:2px;
   font-size: 45px;
   padding-right: 15px;
 }
 
-.custome_container {
+.postblog_custome_container {
   padding: 30px 100px;
 }
 
@@ -54,4 +55,16 @@
 .img__Section img {
   width: 100% !important;
   height: auto !important;
+}
+
+@media screen and (max-width: 650px) {
+  .postblog_custome_container {
+    padding: 10px 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .postHeading {
+    font-size: 25px;
+  }
 }

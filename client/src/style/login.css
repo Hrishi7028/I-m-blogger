@@ -1,0 +1,9 @@
+.mannual_width {
+    width: 27rem;
+}
+
+@media screen and (max-width: 650px) {
+    .mannual_width {
+        width: auto;
+    }
+}

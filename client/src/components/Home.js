@@ -24,39 +24,39 @@ const Home = () => {
 
     return (
         <>
-            <div className="custome_container">
+            <div className="Home_custome_container">
                 {
                     !loading ? posts.length > 0 ?
-                        <div className="container">
+                        <div className="home_container">
                             {posts.map((post) => {
                                 return <div className="card mb-1" key={post._id}>
                                     <div className="row">
-                                        <div className="col-sm-12 col-md-12 col-12 col-lg-8 blog_details">
+                                            <div className="col-sm-12 col-md-12 col-12 col-lg-8">
 
-                                            <div class="card-header avtar_header">
+                                                <div class="card-header avtar_header">
 
-                                                <div className="avatar_section">
-                                                    <span className="avatar_icon">{post.user[0]}</span>
-                                                </div>
-                                                <div className="name_section">
-                                                    <div className="avtar_name">
-                                                        {post.user}
+                                                    <div className="avatar_section">
+                                                        <span className="avatar_icon">{post.user[0]}</span>
                                                     </div>
-                                                    <span className="published_at">Published at : 10:50:15</span>
+                                                    <div className="name_section">
+                                                        <div className="avtar_name">
+                                                            {post.user}
+                                                        </div>
+                                                        <span className="published_at">Published at : 10:50:15</span>
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><Link className="title_link" to={`/detail/${post._id}`}>{post.title}</Link></h5>
+                                                    <p class="card-text">{htmlToText(post.post_body.slice(0, 150))}</p>
+                                                </div>
+
+
                                             </div>
-
-                                            <div class="card-body">
-                                                <h5 class="card-title"><Link className="title_link" to={`/detail/${ post._id }`}>{post.title}</Link></h5>
-                                                <p class="card-text">{htmlToText(post.post_body.slice(0, 150))}</p>
-                                            </div>
-
-
-                                        </div>
-                                        <div className="col-4">
+                                            <div className="col-lg-4 col-sm-12">
                                             <div className="image_section">
-                                                <img src={`/images/${ post.image }`} alt="" />
+                                                <img src={`/images/${post.image}`} alt="" />
                                             </div>
                                         </div>
                                     </div>

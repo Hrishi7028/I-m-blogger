@@ -1,0 +1,15 @@
+.forget_container {
+    width: 30rem;;
+}
+
+
+@media screen and (max-width: 550px) {
+    .forget_container {
+        width: auto;
+        margin: 10px !important;
+        
+    }
+    .font_size {
+        font-size: 27px !important;
+    }
+}

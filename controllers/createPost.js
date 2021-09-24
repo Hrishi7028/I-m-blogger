@@ -26,12 +26,12 @@ module.exports.homePage = async (req, res) => {
 
 module.exports.detailPost = async (req, res) => {
     const id = req.params.id;
-    console.log(id);
-    console.log('hello');
+    // console.log(id);
+    // console.log('hello');
     try {
         const post = await Post.findOne({ _id: id });
         const comment = await Comment.find({ postId: id }).sort({ updatedAt: -1 })
-        console.log(comment);
+        // console.log(comment);
         return res.status(200).json({ post, comment })
 
     } catch (error) {
@@ -46,7 +46,7 @@ module.exports.createPost = (req, res) => {
 
     const form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {
-        console.log(fields, files);
+        // console.log(fields, files);
         const errors = [];
         const { title, description, post_body, _id, user, slug } = fields;
 

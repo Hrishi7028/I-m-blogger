@@ -6,9 +6,8 @@ const User = require('../models/user')
 const sgMail = require('@sendgrid/mail');
 const { v4: uuidv4 } = require('uuid');
 const { errors } = require('formidable');
-// ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_KEY);
 
 
 
@@ -80,6 +79,7 @@ module.exports.register = async (req, res) => {
                 token
             })
         } catch (error) {
+            // console.log(error);
             return res.status(509).json({
                 errors: [{ msg: "data has not saved" }]
             })

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { useHistory } from "react-router-dom";
-
+import '../style/EditName.css'
 
 
 const Editname = (props) => {
@@ -50,7 +50,7 @@ const Editname = (props) => {
 
     return (
 
-        <div className="custome_container mt-5">
+        <div className="editname_custome_container mt-5">
             <ToastContainer
                 position="top-right"
                 autoClose={2000}

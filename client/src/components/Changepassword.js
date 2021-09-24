@@ -46,7 +46,7 @@ const Changepassword = () => {
     }, [profileError,redirect,push])
 
     return (
-        <div className="custome_container mt-5">
+        <div className="editname_custome_container mt-5">
             <ToastContainer
                 position="top-right"
                 autoClose={2000}

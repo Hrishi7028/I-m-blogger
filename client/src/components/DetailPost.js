@@ -40,7 +40,7 @@ const DetailPost = () => {
 
     return (
         <>
-            <div className="custome_container">
+            <div className="single_custome_container">
                 <div className="row m-auto">
                     {
                         loading ? <SemipolarLoading

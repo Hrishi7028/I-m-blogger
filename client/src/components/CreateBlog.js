@@ -110,7 +110,7 @@ const CreateBlog = (props) => {
                 pauseOnHover
             />
             <div className="createPost">
-                <div className="custome_container ">
+                <div className="postblog_custome_container ">
                     <form onSubmit={submitPostdata}>
                         <h2 className="mb-3 postHeading">Create Your Post Here...</h2>
                         <div className="row">

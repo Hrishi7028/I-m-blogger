@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { useHistory } from 'react-router-dom';
+import '../../style/Forget.css'
+
 
 const Forget = () => {
 
@@ -64,9 +66,9 @@ const Forget = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="card mx-auto my-5" style={{ width: "30rem" }}>
+            <div className="card mx-auto my-5 forget_container">
                 <div style={{ padding: "0 1.25rem" }}>
-                    <h1 className="text-center">Password assistance</h1>
+                    <h1 className="text-center font_size">Password assistance</h1>
                     <p>Enter the email address associated with your I'm Blooger account. </p>
                 </div>
                 <div className="card-body">

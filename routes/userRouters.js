@@ -2,9 +2,6 @@ const express = require('express');
 const { register, registerValidation, login, loginValidation, forget_password_controller, reset_password, reset_PasswordValidation } = require('../controllers/userController');
 const router = express.Router();
 
-
-// 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
-
 // user registration router
 router.post('/register', registerValidation, register);
 

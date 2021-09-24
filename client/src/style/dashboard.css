@@ -1,3 +1,7 @@
+.profile_custome_container {
+  padding: 30px 100px;
+}
+
 .showbtn {
   color: black;
   /* background-color: black !important; */
@@ -15,4 +19,10 @@
   color: silver;
   margin-top: -12px;
   display: inline-block;
+}
+
+@media screen and (max-width: 600px) {
+  .profile_custome_container {
+    padding: 10px 10px;
+  }
 }

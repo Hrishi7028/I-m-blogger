@@ -1,13 +1,23 @@
-.slug_input{
+.slug_input {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.copy_clip_board {
-  margin-left: -23px;
+.single_custome_container {
+  padding: 30px 100px;
 }
 
+/* .copy_clip_board {
+  margin-left: -23px;
+} */
+
+.copy_clip_board {
+  margin-left: -23px;
+  z-index: 100;
+  padding-left: 4px;
+  background-color: #e9ecef;
+}
 .detail_img img {
   border-radius: 10px;
 }
@@ -18,4 +28,16 @@
   margin-top: 7px;
   padding: 5px;
   border-radius: 7px;
+}
+
+@media screen and (max-width: 700px) {
+  .single_custome_container {
+    padding: 10px 10px;
+  }
+  .copy_clip_board {
+    margin-left: -23px;
+    z-index: 100;
+    padding-left: 4px;
+    background-color: #e9ecef;
+  }
 }

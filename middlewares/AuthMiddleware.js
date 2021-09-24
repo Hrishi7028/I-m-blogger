@@ -6,7 +6,7 @@ module.exports = (req,res,next) => {
     // jwt.verify(token,);
     try {
         var decoded = jwt.verify(token, process.env.TOKEN_KEY);
-        console.log(decoded);
+        // console.log(decoded);
         next();
       } catch(err) {
         return res.status(401).json({

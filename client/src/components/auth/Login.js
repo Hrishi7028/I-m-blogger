@@ -5,6 +5,7 @@ import { postLoginData } from '../../redux/AsyncMethods/userMethod';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import '../../style/login.css'
 const Login = () => {
 
     const [state, setState] = useState({
@@ -60,7 +61,7 @@ const Login = () => {
                     draggable
                     pauseOnHover
                 />
-                <div className="card mx-auto my-2 mb-3" style={{ width: "27rem" }}>
+                <div className="card mx-auto my-2 mb-3 mannual_width">
                     <div className="card-body">
                         <h4 className="card-title text-center font-weight-bold">Login here</h4>
                         <hr />

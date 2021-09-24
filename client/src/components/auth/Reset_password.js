@@ -86,9 +86,9 @@ const Reset_password = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="card mx-auto my-5 text-capitalize" style={{ width: "30rem" }}>
+            <div className="card mx-auto my-5 text-capitalize forget_container">
                 <div style={{ padding: "0 1.25rem" }}>
-                    <h1 className="text-center ">Reset password</h1>
+                    <h1 className="text-center font_size">Reset password</h1>
                     <p>Enter the email address associated with your I'm Blooger account. </p>
                 </div>
                 <div className="card-body">

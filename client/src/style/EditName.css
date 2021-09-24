@@ -1,0 +1,9 @@
+.editname_custome_container{
+    padding: 30px 100px;
+}
+@media screen  and (max-width: 650px){
+    .editname_custome_container {
+        padding: 10px;
+        
+    }
+}

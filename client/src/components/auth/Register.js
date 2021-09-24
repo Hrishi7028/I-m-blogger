@@ -73,7 +73,7 @@ const Register = () => {
                 pauseOnHover
             />
             <div className="container mt-5">
-                <div className="card mx-auto my-2 mb-3" style={{ width: "27rem" }}>
+                <div className="card mx-auto my-2 mb-3 mannual_width" >
                     <div className="card-body">
 
                         <h4 className="card-title text-center font-weight-bold">Register here</h4>
