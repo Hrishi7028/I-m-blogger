@@ -10,20 +10,6 @@ const initialState = {
 
 const token = localStorage.getItem('User_key')
 
-// if (token) {
-//     const decoded_token = jwt_decode(token);
-//     const expiresIn = new Date(decoded_token.exp * 1000);
-//     if (new Date() > expiresIn) {
-//         localStorage.removeItem('User_key');
-//     } else {
-//         const { user } = decoded_token;
-//         console.log(user);
-//         initialState.user = user;
-//         initialState.token = token;
-
-//         // return decoded_token
-//     }
-// }
 
 const tokenExtractor = (token) => {
     const decoded_token = jwt_decode(token);
